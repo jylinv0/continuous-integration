@@ -1233,6 +1233,10 @@ def execute_commands(
         if is_mac():
             activate_xcode(task_config)
 
+        if is_windows():
+            os.environ["JAVA_HOME"] = "C:\\openjdk21"
+            os.environ["PATH"] = "C:\\openjdk21\\bin;" + os.environ["PATH"]
+
         # If the CI worker runs Bazelisk, we need to forward all required env variables to the test.
         # Otherwise any integration test that invokes Bazel (=Bazelisk in this case) will fail.
         test_env_vars = ["LocalAppData"] if platform == "windows" else ["HOME"]
